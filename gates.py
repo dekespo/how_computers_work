@@ -41,6 +41,41 @@ def DMUX(bit, sel):
     if sel == 0: return bit, 0
     else: return 0, bit
 
+# n-bit version of Basic Gates
+
+# Check if the sizes of gates are the same
+def sizeCheck(g1, g2, nbits):
+    if nbits == len(g1) and len(g1) == len(g2): pass
+    else: sys.exit("THE INPUTS MUST THE SAME NUMBER OF BITS, ABORTING THE MISSION!")
+
+#Gate: n-NOT
+def NOTn(a, n):
+    sizeCheck(a, a, n) # For this case
+    return [NOT(a[i]) for i in xrange(n)]
+
+#Gate: n-AND
+def ANDn(a, b, n):
+    sizeCheck(a, b, n) 
+    return [AND(a[i], b[i]) for i in xrange(n)]
+
+#Gate: n-OR
+def ORn(a, b, n):
+    sizeCheck(a, b, n) 
+    return [OR(a[i], b[i]) for i in xrange(n)]
+
+#n-Multiplexor: MUXn
+def MUXn(a, b, n, sel):
+    sizeCheck(a, b, n) 
+    for i in xrange(n): checkBit(a[i]); checkBit(b[i])
+    checkBit(sel)
+    if sel == 0: return a
+    else: return b
+
+#n-way OR gates: ORnWays
+def ORnWays(a, n):
+    sizeCheck(a, a, n) # For this case
+
+
 x = 0
 y = 1
 print NAND(x,y)
@@ -50,3 +85,10 @@ print OR(x,y)
 print XOR(x,y)
 print MUX(x,y,1)
 print DMUX(1,0)
+
+x = [0, 1, 0, 1]
+y = [0, 1, 1, 0]
+print NOTn(x, len(x))
+print ANDn(x, y, len(x))
+print ORn(x, y, len(x))
+print MUXn(x,y,len(x), 1)
