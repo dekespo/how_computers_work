@@ -37,7 +37,7 @@ def MUX(a, b, sel):
     else: return b
 
 # Demultiplexor: DMUX
-def DMUX(bit, sel):
+def DMUX(bit, sel): # Bug not made with gates!!
     if sel == 0: return bit, 0
     else: return 0, bit
 
@@ -71,24 +71,14 @@ def MUXn(a, b, n, sel):
     if sel == 0: return a
     else: return b
 
-#n-way OR gates: ORnWays
-def ORnWays(a, n):
-    sizeCheck(a, a, n) # For this case
+#m-way OR gate: ORmWays
+def ORnWays(a, m):
+    sizeCheck(a, a, m) # For this case
+    part = OR(a[0],a[1])
+    for i in xrange(2,m):
+        part = OR(a[i],part)
+    return part
 
+#m-way n-bit Multiplexor: MUXnmWays
+#def MUXnmWays()
 
-x = 0
-y = 1
-print NAND(x,y)
-print NOT(x)
-print AND(x,y)
-print OR(x,y)
-print XOR(x,y)
-print MUX(x,y,1)
-print DMUX(1,0)
-
-x = [0, 1, 0, 1]
-y = [0, 1, 1, 0]
-print NOTn(x, len(x))
-print ANDn(x, y, len(x))
-print ORn(x, y, len(x))
-print MUXn(x,y,len(x), 1)
