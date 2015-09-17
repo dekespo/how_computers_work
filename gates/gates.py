@@ -116,3 +116,38 @@ def DEMUX_4Ways(bit, sel2):
            AND(AND(NOT(sel2[0]), sel2[1]),bit),\
            AND(AND(sel2[0], NOT(sel2[1])),bit),\
            AND(AND(sel2[0], sel2[1]),bit)
+
+# Adders
+
+#HalfAdder wtih two bits: HalfAdder
+# Returns sum, carry
+def HalfAdder(a, b):
+    return XOR(a,b), AND(a,b)
+
+#FullAdder with three bits: FullAdder
+# Reurns sum, carry
+def FullAdder(a, b, c):
+    absum, abcarry = HalfAdder(a,b)
+    chsum, chcarry = HalfAdder(c, absum)
+    return chsum, OR(abcarry, chcarry)
+
+#16-bit Adder: Add16
+# Warning: Overflow is not handled!
+def Add16(a, b):
+    n = 16
+    sizeCheckn(a, b, n)
+    bit, carry = HalfAdder(a[n-1],b[n-1])
+    result = [bit]
+    for i in range(n-2, -1, -1):
+        bit, carry = FullAdder(a[i], b[i], carry)
+        result.insert(0, bit)
+    return result
+
+#16-bit Incrementer: Inc16
+# Warning: Overflow is not handled!
+def Inc16(a):
+    n = 16
+    b = [0] * 15
+    b.append(1) #Increment
+    return Add16(a,b)
+    

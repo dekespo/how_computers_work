@@ -88,6 +88,32 @@ class MyTest(unittest.TestCase):
         for i in range(len(sel2)):
             self.assertEqual(gates.DEMUX_4Ways(1, sel2[i]), demux_4ways_result[i])
 
+    # Test 15
+    def test_HalfAdder(self):
+        halfadder_result = ((0, 1, 1, 0), (0, 0, 0, 1))
+        for i in range(len(x)):
+            self.assertEqual(gates.HalfAdder(x[i],y[i]), (halfadder_result[0][i], halfadder_result[1][i]))
+        
+    # Test 16
+    def test_FullAdder(self):
+        fulladder_result = ((0, 1, 1, 0, 1, 0, 0, 1), (0, 0, 0, 1, 0, 1, 1, 1))
+        for i in range(len(x8)):
+            self.assertEqual(gates.FullAdder(x8[i],y8[i],z8[i]), (fulladder_result[0][i], fulladder_result[1][i]))
+        
+    # Test 17
+    def test_Add16(self):
+        add16_result = ([1,0,0,0] * 4, w16)
+        self.assertEqual(gates.Add16(x16,y16), add16_result[0])
+        self.assertEqual(gates.Add16(z16,w16), add16_result[1])
+
+    # Test 18
+    def test_Inc16(self):
+        check = [0] * 15
+        check.append(1)
+        inc16_result = (check, z16)
+        self.assertEqual(gates.Inc16(z16), inc16_result[0])
+        self.assertEqual(gates.Inc16(w16), inc16_result[1])
+
 if __name__ == "__main__":
     #Inputs
     x = [0, 0, 1, 1]
@@ -99,6 +125,12 @@ if __name__ == "__main__":
     z16 = [0, 0, 0, 0] * 4
     w16 = [1, 1, 1, 1] * 4
     sel2 =[[0, 0], [0, 1], [1, 0], [1, 1]]
+    ones = [1] * 4
+    zeros = [0] * 4
+    x8 = x*2
+    y8 = y*2
+    z8 = zeros + ones 
 
     # Run the tests
     unittest.main()
+
