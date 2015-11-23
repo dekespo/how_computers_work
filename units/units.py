@@ -22,7 +22,7 @@ def wiresN(x, n):
 def ALU16(x, y, zx, nx, zy, ny, f, no):
     n = 16
     output = [random.randint(0,1) for i in range(n)] # Random noise in bits
-    print("current output = ", output)
+    print("current output (noise or leftover) = ", output)
     G.sizeCheckn(output, output, n)
 
     # Condition 1
@@ -49,11 +49,5 @@ def ALU16(x, y, zx, nx, zy, ny, f, no):
     if no == 1: output = G.NOT16(output)
     else: pass
 
-    # Condition 7 & 8 for output check
-
-    # Line 1 to set the output to zero:
-    # Check if the parameter bits match
-    #lineCheck1 = G.AND(zx, G.AND(G.NOT(nx), G.AND(zy, G.AND(G.NOT(zy), G.AND(f, G.NOT(no))))))
-    #output = G.AND16(wiresN(lineCheck1, n), Zero16(x)) # Not sure if this one is a good way
     return output
     
