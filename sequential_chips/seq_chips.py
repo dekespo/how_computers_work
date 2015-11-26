@@ -17,6 +17,17 @@ class DFF:
         self.temp = nex
         return self.prev
 
-#def bit(a, load):
-#    G.checkBit(a); G.checkbit(load)
-#    G.NOT()
+# A single-bit register: BIT
+class BIT:
+    def __init__(self, a):
+        G.checkBit(a)
+        self.aDFF = DFF(a)
+        self.prev = random.randint(0,1) # Noise
+        self.prevLoad = random.randint(0,1) # Noise
+    def clock(self, nex, load):
+        G.checkBit(nex); G.checkBit(load)
+        part1 = G.AND(self.prevLoad, self.aDFF.clock(nex))
+        part2 = G.AND(G.NOT(self.prevLoad), self.prev)
+        self.prevLoad = load
+        self.prev = G.OR(part1, part2)
+        return self.prev
