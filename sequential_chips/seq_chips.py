@@ -31,3 +31,20 @@ class BIT:
         self.prevLoad = load
         self.prev = G.OR(part1, part2)
         return self.prev
+
+#Register-16bit: REGISTER
+class REGISTER:
+    def __init__(self, a):
+        self.n = 16
+        G.sizeCheckn(a, a, self.n)
+        self.DFFs = []
+        for i in range(self.n):
+            self.DFFs.append(BIT(a[i]))
+        #self.prev = random.randint(0,1) # Noise
+        #self.prevLoad = random.randint(0,1) # Noise
+    def clock(self, nex, load):
+        G.sizeCheckn(nex, nex, self.n); G.checkBit(load)
+        output = []
+        for i in range(self.n):
+            output.append(self.DFFs[i].clock(nex[i], load))
+        return output

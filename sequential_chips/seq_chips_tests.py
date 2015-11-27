@@ -41,6 +41,16 @@ class MyTest(unittest.TestCase):
         self.assertEqual(arrxSpecial[1:], resultSpecialX) 
         self.assertEqual(arrySpecial[1:], resultSpecialY) 
 
+    # Test 3
+    def test_REGISTER(self):
+        given16tarr = [x16, y16, x16]
+        arr16t = []
+        arr16tRegister = seq_chips.REGISTER(x16)
+        for i in range(len(loadttimes)):
+            arr16t.append(arr16tRegister.clock(given16tarr[i], loadttimes[i]))
+        self.assertEqual(arr16t[1], x16) 
+        self.assertEqual(arr16t[2], y16) 
+
 if __name__ == "__main__":
     x16 = [1, 0, 1, 0] * 4
     y16 = [0, 0, 1, 1] * 4
@@ -49,6 +59,7 @@ if __name__ == "__main__":
     loadSpecial = [1, 1, 0, 1, 1]
     resultSpecialX = [1, 0, 0, 0]
     resultSpecialY = [0, 0, 0, 1]
+    loadttimes = [1, 1, 1]
 
     #Run the tests
     unittest.main()
